@@ -1,0 +1,287 @@
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #f3f6fc;
+    color: #17243b;
+}
+
+.container {
+    max-width: 1150px;
+    margin: auto;
+    padding: 32px 22px;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 30px;
+}
+
+.logo {
+    width: 58px;
+    height: 58px;
+    display: grid;
+    place-items: center;
+    background: #2855d9;
+    color: white;
+    border-radius: 16px;
+    font-weight: 800;
+    font-size: 21px;
+}
+
+.eyebrow {
+    color: #2855d9;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    margin: 0 0 7px;
+}
+
+h1 {
+    font-size: clamp(25px, 4vw, 35px);
+    margin: 0 0 8px;
+}
+
+h2 {
+    font-size: 21px;
+    margin: 0 0 10px;
+}
+
+.subtitle,
+.muted {
+    color: #738096;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.panel,
+.metric {
+    background: white;
+    border: 1px solid #e4eaf3;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 18px;
+}
+
+.upload-box {
+    min-height: 180px;
+    border: 2px dashed #b9c9e8;
+    border-radius: 13px;
+    background: #f8faff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    margin: 22px 0;
+    padding: 20px;
+    text-align: center;
+}
+
+.upload-box:hover {
+    background: #eef3ff;
+    border-color: #2855d9;
+}
+
+.upload-box input {
+    display: none;
+}
+
+.upload-icon {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    background: #e6edff;
+    color: #2855d9;
+    font-size: 28px;
+}
+
+.upload-box span:last-of-type {
+    color: #738096;
+    font-size: 12px;
+}
+
+.button {
+    border: none;
+    background: #2855d9;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    padding: 13px 19px;
+    border-radius: 9px;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background: #1c43b8;
+}
+
+.alert {
+    padding: 14px;
+    margin-bottom: 18px;
+    border-radius: 10px;
+    font-size: 13px;
+}
+
+.alert.error {
+    color: #9b2222;
+    background: #fff0f0;
+    border: 1px solid #ffd1d1;
+}
+
+.results {
+    margin-top: 35px;
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 18px;
+}
+
+.metrics {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+    margin-bottom: 18px;
+}
+
+.metric {
+    margin: 0;
+    padding: 19px;
+}
+
+.metric span {
+    display: block;
+    color: #738096;
+    font-size: 12px;
+    margin-bottom: 12px;
+}
+
+.metric strong {
+    display: block;
+    font-size: 27px;
+    overflow-wrap: anywhere;
+}
+
+.metric .target {
+    font-size: 17px;
+}
+
+.count-row {
+    display: grid;
+    grid-template-columns: 70px 1fr 40px;
+    align-items: center;
+    gap: 12px;
+    margin: 17px 0;
+    font-size: 13px;
+}
+
+progress.bar {
+    appearance: none;
+    display: block;
+    width: 100%;
+    height: 12px;
+    border: 0;
+    background: #e9edf5;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+progress.bar::-webkit-progress-bar {
+    background: #e9edf5;
+    border-radius: 20px;
+}
+
+progress.bar::-webkit-progress-value {
+    background: #2855d9;
+    border-radius: 20px;
+}
+
+progress.bar::-moz-progress-bar {
+    background: #2855d9;
+    border-radius: 20px;
+}
+
+.note {
+    padding: 13px;
+    background: #fff7e6;
+    color: #785a1f;
+    border-radius: 9px;
+    font-size: 12px;
+    line-height: 1.6;
+    margin-top: 20px;
+}
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+th,
+td {
+    padding: 12px;
+    border-bottom: 1px solid #edf0f5;
+    text-align: left;
+}
+
+th {
+    background: #f4f6fb;
+    color: #47536b;
+}
+
+footer {
+    text-align: center;
+    color: #8994a7;
+    font-size: 11px;
+    padding: 25px 0 5px;
+}
+
+@media (max-width: 760px) {
+    .container {
+        padding: 20px 13px;
+    }
+
+    .metrics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .panel {
+        padding: 17px;
+    }
+
+    .section-title {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .download {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media (max-width: 380px) {
+    .metrics {
+        grid-template-columns: 1fr;
+    }
+}

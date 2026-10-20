@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Employee Attrition Analytics</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">EA</div>
+            <div>
+                <p class="eyebrow">HR ANALYTICS / MACHINE LEARNING</p>
+                <h1>Employee Attrition Prediction</h1>
+                <p class="subtitle">
+                    Analyze employee data with a Random Forest model.
+                </p>
+            </div>
+        </header>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+                <div class="alert {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endwith %}
+
+        <section class="panel">
+            <h2>Upload employee dataset</h2>
+            <p class="muted">
+                Select a labeled CSV file from your computer.
+                It must contain an Attrition column.
+            </p>
+
+            <form id="uploadForm" action="{{ url_for('upload') }}"
+                  method="POST" enctype="multipart/form-data">
+
+                <label class="upload-box" for="file">
+                    <span class="upload-icon">↑</span>
+                    <strong id="fileName">Choose your CSV file</strong>
+                    <span id="fileInfo">Click to browse your computer</span>
+                    <input type="file" name="file" id="file"
+                           accept=".csv,text/csv" required>
+                </label>
+
+                <button class="button" type="submit">
+                    Upload and Analyze →
+                </button>
+            </form>
+        </section>
+
+        {% if results %}
+        <section class="results">
+            <div class="section-title">
+                <div>
+                    <p class="eyebrow">ANALYSIS REPORT</p>
+                    <h2>Prediction dashboard</h2>
+                </div>
+                <a class="button download"
+                   href="{{ url_for('download') }}">
+                    Download CSV ↓
+                </a>
+            </div>
+
+            <div class="metrics">
+                <article class="metric">
+                    <span>Employees analyzed</span>
+                    <strong>{{ results.rows }}</strong>
+                </article>
+
+                <article class="metric">
+                    <span>Input columns</span>
+                    <strong>{{ results.columns }}</strong>
+                </article>
+
+                <article class="metric">
+                    <span>Target field</span>
+                    <strong class="target">{{ results.target }}</strong>
+                </article>
+
+                <article class="metric">
+                    <span>Test accuracy</span>
+                    <strong>
+                        {% if results.accuracy is not none %}
+                            {{ results.accuracy }}%
+                        {% else %}
+                            N/A
+                        {% endif %}
+                    </strong>
+                </article>
+            </div>
+
+            <div class="panel">
+                <h2>Attrition overview</h2>
+                <p class="muted">Known labels compared with predictions.</p>
+
+                {% for label, count in results.actual_counts.items() %}
+                    <div class="count-row">
+                        <span>{{ label }}</span>
+                        <progress class="bar" value="{{ count }}"
+                                  max="{{ results.rows }}"
+                                  aria-label="{{ label }}: {{ count }} of {{ results.rows }}">
+                        </progress>
+                        <strong>{{ count }}</strong>
+                    </div>
+                {% endfor %}
+
+                <p class="note">
+                    Accuracy is calculated on a held-out test set when
+                    enough labeled examples are available. The exported
+                    row-level predictions are generated after retraining
+                    on all labeled rows.
+                </p>
+            </div>
+
+            <div class="panel">
+                <h2>Employee prediction preview</h2>
+                <p class="muted">First 10 rows of the output.</p>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                {% for col in results.column_names %}
+                                    <th>{{ col }}</th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for row in results.preview %}
+                                <tr>
+                                    {% for col in results.column_names %}
+                                        <td>{{ row[col] }}</td>
+                                    {% endfor %}
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+        {% endif %}
+
+        <footer>
+            Educational project · Predictions are estimates, not
+            definitive judgments about employees.
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
